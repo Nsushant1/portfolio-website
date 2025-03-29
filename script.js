@@ -1,145 +1,127 @@
 // Wait for the DOM to be fully loaded
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   // Navbar scroll effect
-  const navbar = document.querySelector(".navbar");
+  const navbar = document.querySelector(".navbar")
 
-  window.addEventListener("scroll", function () {
+  window.addEventListener("scroll", () => {
     if (window.scrollY > 50) {
-      navbar.classList.add("scrolled");
+      navbar.classList.add("scrolled")
     } else {
-      navbar.classList.remove("scrolled");
+      navbar.classList.remove("scrolled")
     }
-  });
+  })
 
   // Active navigation links
-  const sections = document.querySelectorAll("section");
-  const navLinks = document.querySelectorAll(".nav-link");
+  const sections = document.querySelectorAll("section")
+  const navLinks = document.querySelectorAll(".nav-link")
 
-  window.addEventListener("scroll", function () {
-    let current = "";
+  window.addEventListener("scroll", () => {
+    let current = ""
 
     sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
+      const sectionTop = section.offsetTop
+      const sectionHeight = section.clientHeight
 
       if (pageYOffset >= sectionTop - sectionHeight / 3) {
-        current = section.getAttribute("id");
+        current = section.getAttribute("id")
       }
-    });
+    })
 
     navLinks.forEach((link) => {
-      link.classList.remove("active");
+      link.classList.remove("active")
       if (link.getAttribute("href") === `#${current}`) {
-        link.classList.add("active");
+        link.classList.add("active")
       }
-    });
-  });
+    })
+  })
 
   // Back to top button
-  const backToTopButton = document.querySelector(".back-to-top");
+  const backToTopButton = document.querySelector(".back-to-top")
 
-  window.addEventListener("scroll", function () {
+  window.addEventListener("scroll", () => {
     if (window.scrollY > 300) {
-      backToTopButton.classList.add("active");
+      backToTopButton.classList.add("active")
     } else {
-      backToTopButton.classList.remove("active");
+      backToTopButton.classList.remove("active")
     }
-  });
+  })
 
-  backToTopButton.addEventListener("click", function (e) {
-    e.preventDefault();
+  backToTopButton.addEventListener("click", (e) => {
+    e.preventDefault()
     window.scrollTo({
       top: 0,
       behavior: "smooth",
-    });
-  });
+    })
+  })
 
   // Project filtering
-  const filterButtons = document.querySelectorAll(".filter-buttons button");
-  const projectItems = document.querySelectorAll(".project-item");
+  const filterButtons = document.querySelectorAll(".filter-buttons button")
+  const projectItems = document.querySelectorAll(".project-item")
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", function () {
       // Remove active class from all buttons
-      filterButtons.forEach((btn) => btn.classList.remove("active"));
+      filterButtons.forEach((btn) => btn.classList.remove("active"))
 
       // Add active class to clicked button
-      this.classList.add("active");
+      this.classList.add("active")
 
-      const filter = this.getAttribute("data-filter");
+      const filter = this.getAttribute("data-filter")
 
       projectItems.forEach((item) => {
         if (filter === "all" || item.classList.contains(filter)) {
-          item.style.display = "block";
+          item.style.display = "block"
         } else {
-          item.style.display = "none";
+          item.style.display = "none"
         }
-      });
-    });
-  });
+      })
+    })
+  })
 
   // Form submission
-  const contactForm = document.getElementById("contactForm");
-  const formMessage = document.querySelector(".form-message");
+  const contactForm = document.getElementById("contactForm")
+  const formMessage = document.querySelector(".form-message")
 
   if (contactForm) {
-    contactForm.addEventListener("submit", function (e) {
-      e.preventDefault();
+    // Remove the existing event listener that prevents form submission
+    // We'll let Formspree handle the submission
 
-      // Get form values
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const subject = document.getElementById("subject").value;
-      const message = document.getElementById("message").value;
+    // Add a listener to show a sending message
+    contactForm.addEventListener("submit", (e) => {
+      // Don't prevent default - let the form submit to Formspree
 
-      // Simple validation
-      if (!name || !email || !subject || !message) {
-        formMessage.innerHTML =
-          '<div class="alert alert-danger">Please fill in all fields</div>';
-        return;
-      }
+      // Show sending message
+      formMessage.innerHTML = '<div class="alert alert-info">Sending message...</div>'
 
-      // Simulate form submission (in a real application, you would send data to a server)
-      formMessage.innerHTML =
-        '<div class="alert alert-info">Sending message...</div>';
-
-      // Simulate successful submission after 2 seconds
-      setTimeout(function () {
-        formMessage.innerHTML =
-          '<div class="alert alert-success">Message sent successfully!</div>';
-        contactForm.reset();
-
-        // Clear success message after 5 seconds
-        setTimeout(function () {
-          formMessage.innerHTML = "";
-        }, 5000);
-      }, 2000);
-    });
+      // We'll let Formspree handle the rest
+    })
   }
 
   // Smooth scrolling for navigation links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
-      e.preventDefault();
+      e.preventDefault()
 
-      const targetId = this.getAttribute("href");
+      const targetId = this.getAttribute("href")
 
-      if (targetId === "#") return;
+      if (targetId === "#") return
 
-      const targetElement = document.querySelector(targetId);
+      const targetElement = document.querySelector(targetId)
 
       if (targetElement) {
+        // Scroll to the exact top of the section for full-screen view
         window.scrollTo({
-          top: targetElement.offsetTop - 70,
+          top: targetElement.offsetTop,
           behavior: "smooth",
-        });
+        })
 
         // Close mobile menu if open
-        const navbarCollapse = document.querySelector(".navbar-collapse");
+        const navbarCollapse = document.querySelector(".navbar-collapse")
         if (navbarCollapse.classList.contains("show")) {
-          navbarCollapse.classList.remove("show");
+          navbarCollapse.classList.remove("show")
         }
       }
-    });
-  });
-});
+    })
+  })
+})
+

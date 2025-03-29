@@ -36,7 +36,11 @@ a {
 
 /* Section Padding */
 .section-padding {
-    padding: 100px 0;
+  padding: 100px 0;
+  min-height: 100vh; /* Make each section at least full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Section Title */
@@ -98,10 +102,12 @@ a {
 
 /* Hero Section */
 .hero {
-    height: 100vh;
-    min-height: 700px;
-    padding-top: 80px;
-    background-color: var(--darker-color);
+  height: 100vh;
+  min-height: 700px;
+  padding-top: 80px;
+  background-color: var(--darker-color);
+  display: flex;
+  align-items: center;
 }
 
 .hero h1 {
